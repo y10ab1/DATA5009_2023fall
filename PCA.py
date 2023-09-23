@@ -15,7 +15,7 @@ class PCA:
         cov = np.cov(X.T)
 
         # eigenvalues, eigenvectors
-        eigenvalues, eigenvectors = np.linalg.eig(cov)
+        eigenvalues, eigenvectors = np.linalg.eig(cov) 
 
         # sort eigenvalues and eigenvectors
         eigenvectors = eigenvectors.T
@@ -45,7 +45,7 @@ if __name == '__main__':
     y = data.target
 
     # Project the data onto the 2 primary principal components
-    pca = PCA(2)
+    pca = PCA(n_components=2)
     X_projected = pca.fit_transform(X)
 
     print('Shape of X:', X.shape)
