@@ -17,6 +17,12 @@ def random_pick(X, n=6):
     # print where the rows and cols are picked from
     print(f'Rows are picked from {idxs_r}')
     print(f'Cols are picked from {idxs_c}')
+    
+    # check if X_picked has at least 4 eigenvalues
+    eigenvalues, eigenvectors = np.linalg.eig(X_picked)
+    print(f'X_picked has {len(eigenvalues)} eigenvalues')
+    assert len(eigenvalues) >= 4, 'X_picked does not have at least 4 eigenvalues, please try again'
+    
     return X_picked
     
     
@@ -31,7 +37,7 @@ if __name__ == "__main__":
     # print the picked data
     print(X_picked)
     
+    # save the picked data to a npy file
+    np.save('X_picked.npy', X_picked)
     
-    # check if X_picked has at least 4 eigenvalues
-    eigenvalues, eigenvectors = np.linalg.eig(X_picked)
-    print(f'X_picked has {len(eigenvalues)} eigenvalues')
+    
