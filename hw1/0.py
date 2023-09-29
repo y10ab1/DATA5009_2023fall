@@ -9,10 +9,14 @@ def random_pick(X, n=6):
     :return: X_picked
     """
     # randomly pick n rows and n cols from X (default n=6 and uniform sampling without replacement)
-    idxs = np.random.choice(X.shape[0], n, replace=False)
-    X_picked = X[idxs, :]
-    idxs = np.random.choice(X.shape[1], n, replace=False)
-    X_picked = X_picked[:, idxs]
+    idxs_r = np.random.choice(X.shape[0], n, replace=False)
+    X_picked = X[idxs_r, :]
+    idxs_c = np.random.choice(X.shape[1], n, replace=False)
+    X_picked = X_picked[:, idxs_c]
+    
+    # print where the rows and cols are picked from
+    print(f'Rows are picked from {idxs_r}')
+    print(f'Cols are picked from {idxs_c}')
     return X_picked
     
     
@@ -26,3 +30,8 @@ if __name__ == "__main__":
     X_picked = random_pick(X)
     # print the picked data
     print(X_picked)
+    
+    
+    # check if X_picked has at least 4 eigenvalues
+    eigenvalues, eigenvectors = np.linalg.eig(X_picked)
+    print(f'X_picked has {len(eigenvalues)} eigenvalues')
