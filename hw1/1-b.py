@@ -4,25 +4,35 @@ from LU import LU
 from QR import QR
 
 
-def inverse(X):
+def power_iteration(X, n_iter=100):
     """
-    Inverse of matrix X
-    :param X: matrix X
-    :return: X_inv
+    Compute the largest eigenvalue and the corresponding eigenvector of a symmetric matrix X using power iteration.
+    
+    Parameters
+    ----------
+    X : ndarray
+        The input matrix.
+        
+    Returns
+    -------
+    eigenvalue : float
+        The largest eigenvalue of X.
+    eigenvector : ndarray
+        The corresponding eigenvector of the largest eigenvalue.
     """
-    # check if X is a square matrix
-    assert X.shape[0] == X.shape[1], 'X is not a square matrix, please try again'
-    # check if X is invertible
-    assert np.linalg.det(X) != 0, 'X is not invertible, please try again'
-    # compute the inverse of X
-    X_temp = np.hstack((X, np.eye(X.shape[0])))
-    for i in range(X_temp.shape[0]):
-        X_temp[i, :] = X_temp[i, :] / X_temp[i, i]
-        for j in range(X_temp.shape[0]):
-            if i != j:
-                X_temp[j, :] = X_temp[j, :] - X_temp[i, :] * X_temp[j, i]
-    X_inv = X_temp[:, X.shape[0]:]
-    return X_inv
+    # initialize the eigenvector
+    eigenvector = np.random.rand(X.shape[0])
+    eigenvector = eigenvector / np.linalg.norm(eigenvector)
+    
+    # power iteration
+    for _ in range(n_iter):
+        eigenvector = np.dot(X, eigenvector)
+        eigenvector = eigenvector / np.linalg.norm(eigenvector)
+    
+    # compute the eigenvalue
+    eigenvalue = np.dot(np.dot(X, eigenvector), eigenvector) / np.dot(eigenvector, eigenvector)
+    
+    return eigenvalue, eigenvector
     
 
 if __name__ == "__main__":

@@ -62,3 +62,7 @@ if __name == '__main__':
     plt.ylabel('Principal Component 2')
     plt.colorbar()
     plt.show()
+    
+    
+    
+    
