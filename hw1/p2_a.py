@@ -1,4 +1,5 @@
 import pyforest
+import numpy as np
 
 def centering(x):
     return x - np.mean(x)
