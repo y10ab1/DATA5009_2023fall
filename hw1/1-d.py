@@ -25,6 +25,7 @@ def inverse_using_QR(X):
 if __name__ == "__main__":
     # load X_picked.npy's data
     X_picked = np.load('X_picked.npy')
+
     
     # compute the inverse of X_picked
     X_inv = inverse_using_QR(X_picked)
