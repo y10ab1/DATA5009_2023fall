@@ -39,10 +39,12 @@ if __name__ == "__main__":
     # load X_picked.npy's data
     X_picked = np.load('X_picked.npy')
     
-    # compute the inverse of X_picked
-    X_inv = inverse(X_picked)
-    print(X_inv)
+    # compute the largest eigenvalue and the corresponding eigenvector of X_picked using power iteration
+    eigenvalue, eigenvector = power_iteration(X_picked)
+    print('The largest eigenvalue of X_picked is', eigenvalue)
+    print('The corresponding eigenvector of the largest eigenvalue is', eigenvector)
     
-    # validate the inverse of X_picked
-    print(f'X_inv is the inverse of X_picked: {np.allclose(np.dot(X_picked, X_inv), np.eye(X_picked.shape[0]))}')
-    
+    # validate the result using numpy.linalg.eig
+    print('Computed by numpy.linalg.eig:')
+    print('The largest eigenvalue of X_picked is', np.linalg.eig(X_picked)[0][0])
+    print('The corresponding eigenvector of the largest eigenvalue is', np.linalg.eig(X_picked)[1][:, 0])

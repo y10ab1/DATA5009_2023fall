@@ -90,3 +90,8 @@ if __name__ == "__main__":
     L, U = LU(X)
     print(L)
     print(U)
+    
+    # validate the LU decomposition of X
+    print(f'L is lower triangular: {np.allclose(np.tril(L), L)}')
+    print(f'U is upper triangular: {np.allclose(np.triu(U), U)}')
+    print(f'L * U = X: {np.allclose(np.dot(L, U), X)}')

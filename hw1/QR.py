@@ -22,3 +22,8 @@ if __name__ == "__main__":
     Q, R = QR(X)
     print(Q)
     print(R)
+    
+    # validate the QR decomposition of X
+    print(f'Q is orthogonal: {np.allclose(np.dot(Q, Q.T), np.eye(X.shape[0]))}')
+    print(f'R is upper triangular: {np.allclose(np.triu(R), R)}')
+    print(f'Q * R = X: {np.allclose(np.dot(Q, R), X)}')
