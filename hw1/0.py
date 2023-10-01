@@ -39,5 +39,6 @@ if __name__ == "__main__":
     
     # save the picked data to a npy file
     np.save('X_picked.npy', X_picked)
+    np.save('X.npy', X)
     
     

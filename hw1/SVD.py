@@ -1,5 +1,35 @@
 import numpy as np
 
+def power_iteration(X, n_iter=100):
+    """
+    Compute the largest eigenvalue and the corresponding eigenvector of a symmetric matrix X using power iteration.
+    
+    Parameters
+    ----------
+    X : ndarray
+        The input matrix.
+        
+    Returns
+    -------
+    eigenvalue : float
+        The largest eigenvalue of X.
+    eigenvector : ndarray
+        The corresponding eigenvector of the largest eigenvalue.
+    """
+    # initialize the eigenvector
+    eigenvector = np.random.rand(X.shape[0])
+    eigenvector = eigenvector / np.linalg.norm(eigenvector)
+    
+    # power iteration
+    for _ in range(n_iter):
+        eigenvector = np.dot(X, eigenvector)
+        eigenvector = eigenvector / np.linalg.norm(eigenvector)
+    
+    # compute the eigenvalue
+    eigenvalue = np.dot(np.dot(X, eigenvector), eigenvector) / np.dot(eigenvector, eigenvector)
+    
+    return eigenvalue, eigenvector
+
 def SVD(X):
     """
     SVD decomposition/ SVD factorization
@@ -7,23 +37,33 @@ def SVD(X):
     :return: U, S, V
     """
     n = len(X)
-    U = np.eye(n)
+    U = np.zeros((n, n))
     S = np.zeros((n, n))
     V = np.zeros((n, n))
+    # compute eigenvalues and eigenvectors using power iteration
     for i in range(n):
-        for j in range(i, n):
-            S[i, j] = X[i, j] - np.dot(U[i, :i], np.dot(S[:i, :i], V[:i, j]))
-        for j in range(i + 1, n):
-            U[j, i] = (X[j, i] - np.dot(U[j, :i], np.dot(S[:i, :i], V[:i, i]))) / S[i, i]
+        eigenvalue, eigenvector = power_iteration(X)
+        # update U, S, V
+        U[:, i] = eigenvector
+        S[i, i] = eigenvalue
+        V[:, i] = np.dot(X, eigenvector) / eigenvalue
+        # update X
+        X = X - eigenvalue * np.outer(eigenvector, eigenvector)
     return U, S, V
+    
 
 if __name__ == "__main__":
-    X = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
-    X = np.array([[1, 0, 0, 0, 2],
-                  [0, 0, 3, 0, 0],
-                  [0, 0, 0, 0, 0],
-                  [0, 2, 0 ,0 ,0] ])
+    X = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 7]]).astype(float)
+    # check X is full rank
+    assert np.linalg.matrix_rank(X) == X.shape[0], 'X is not full rank, please try again'
+
     U, S, V = SVD(X)
     print(U)
     print(S)
     print(V)
+    
+    # validate the SVD decomposition of X
+    print(f'U is orthogonal: {np.allclose(np.dot(U, U.T), np.eye(X.shape[0]))}')
+    print(f'S is diagonal: {np.allclose(np.diag(np.diag(S)), S)}')
+    print(f'V is orthogonal: {np.allclose(np.dot(V, V.T), np.eye(X.shape[0]))}')
+    print(f'U * S * V.T = X: {np.allclose(np.dot(np.dot(U, S), V.T), X)}')
