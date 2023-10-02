@@ -34,7 +34,8 @@ if __name__ == '__main__':
     print('The top 3 principal components of X_picked are:')
     print(topk_PC.round(2))
     print('The corresponding eigenvalues are:', topk_eigv)
-    X_picked_transformed = np.dot(topk_PC, X_picked)
+    top3_PC = topk_PC[:3]
+    X_picked_transformed = np.dot(top3_PC, X_picked)
     print('The transformed X_picked is:', X_picked_transformed.round(2))
 
     # plot cumulative variance explained
