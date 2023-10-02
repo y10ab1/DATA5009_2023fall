@@ -38,5 +38,5 @@ if __name__ == '__main__':
     # print the kurtosis and skewness of each column of X_picked
     print('The kurtosis of each column of X_picked is', kurtosis_list)
     print('The skewness of each column of X_picked is', skewness_list)
-    # conclude if the data is normal distribution
-    print('The data is normal distribution' if np.allclose(kurtosis_list, 3) and np.allclose(skewness_list, 0) else 'The data is not normal distribution')
+    # conclude if the data is gaussian distribution
+    print('The data is gaussian distribution' if np.allclose(kurtosis_list, 3) and np.allclose(skewness_list, 0) else 'The data is not gaussian distribution')
