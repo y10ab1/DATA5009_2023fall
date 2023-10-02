@@ -74,4 +74,4 @@ if __name__ == '__main__':
     ax.set_zlabel('PC3')
     plt.title('Data points projected onto the top 3 principal components')
     plt.tight_layout()
-    plt.savefig('p2_b.png')
+    plt.savefig('p2_c.png')
