@@ -29,14 +29,14 @@ def skewness(x):
     return skewness
 
 if __name__ == '__main__':
-    X_picked = np.load('X.npy')
-    print(X_picked)
+    X = np.load('X.npy')
+    print(X)
     
-    # compute kurtosis and skewness of each column of X_picked
-    kurtosis_list = [kurtosis(X_picked[:, i]).round(3) for i in range(X_picked.shape[1])]
-    skewness_list = [skewness(X_picked[:, i]).round(3) for i in range(X_picked.shape[1])]
-    # print the kurtosis and skewness of each column of X_picked
-    print('The kurtosis of each column of X_picked is', kurtosis_list)
-    print('The skewness of each column of X_picked is', skewness_list)
+    # compute kurtosis and skewness of each column of X
+    kurtosis_list = [kurtosis(X[:, i]).round(3) for i in range(X.shape[1])]
+    skewness_list = [skewness(X[:, i]).round(3) for i in range(X.shape[1])]
+    # print the kurtosis and skewness of each column of X
+    print('The kurtosis of each column of X is', kurtosis_list)
+    print('The skewness of each column of X is', skewness_list)
     # conclude if the data is gaussian distribution
     print('The data is gaussian distribution' if np.allclose(kurtosis_list, 3) and np.allclose(skewness_list, 0) else 'The data is not gaussian distribution')
