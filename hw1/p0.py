@@ -1,6 +1,9 @@
 import numpy as np
 import pandas as pd
 
+# set the seed
+np.random.seed(825)
+
 def random_pick(X, n=6):
     """
     Randomly pick n rows and n cols from X
@@ -14,16 +17,14 @@ def random_pick(X, n=6):
     idxs_c = np.random.choice(X.shape[1], n, replace=False)
     X_picked = X_picked[:, idxs_c]
     
-    # print where the rows and cols are picked from
-    print(f'Rows are picked from {idxs_r}')
-    print(f'Cols are picked from {idxs_c}')
+
     
     # check if X_picked has at least 4 eigenvalues
     eigenvalues, eigenvectors = np.linalg.eig(X_picked)
     print(f'X_picked has {len(eigenvalues)} eigenvalues')
     assert len(eigenvalues) >= 4, 'X_picked does not have at least 4 eigenvalues, please try again'
     
-    return X_picked
+    return X_picked, idxs_r, idxs_c
     
     
     
@@ -33,7 +34,10 @@ if __name__ == "__main__":
     # keep only the temperature data
     X = df.iloc[:, 4:-1].values
     # randomly pick 6 rows and 6 cols from X
-    X_picked = random_pick(X)
+    X_picked, idxs_r, idxs_c = random_pick(X)
+    # print where the stations and months are picked from
+    print(f'Stations are picked from {df.iloc[idxs_r, 0]}')
+    print(f'Months are picked from {df.iloc[0, idxs_c]}')
     # print the picked data
     print(X_picked)
     
