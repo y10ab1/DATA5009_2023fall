@@ -33,14 +33,14 @@ if __name__ == "__main__":
     df = pd.read_csv('CAmaxTemp.csv')
     # keep only the temperature data
     X = df.iloc[:, 4:-1].values
+    print(df)
     # randomly pick 6 rows and 6 cols from X
     X_picked, idxs_r, idxs_c = random_pick(X)
     # print where the stations and months are picked from
-    print(f'Stations are picked from {df.iloc[idxs_r, 0]}')
-    print(f'Months are picked from {df.iloc[0, idxs_c]}')
+    print(f'Stations are picked from:\n {df.iloc[idxs_r, 0].values}\n')
+    print(f'Months are picked from:\n {df.columns[4:-1][idxs_c].values}\n')
     # print the picked data
     print(X_picked)
-    
     # save the picked data to a npy file
     np.save('X_picked.npy', X_picked)
     np.save('X.npy', X)
