@@ -9,5 +9,5 @@ if __name__ == "__main__":
     
     # compute LU decomposition of X_picked
     L, U = LU(X_picked)
-    print(L)
-    print(U)
+    print(L.round(2))
+    print(U.round(2))

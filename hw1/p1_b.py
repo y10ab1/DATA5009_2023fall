@@ -1,7 +1,5 @@
 import numpy as np
-import pandas as pd
 from LU import LU
-from QR import QR
 
 
 def power_iteration(X, n_iter=100):
