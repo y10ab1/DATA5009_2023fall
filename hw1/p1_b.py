@@ -1,6 +1,4 @@
 import numpy as np
-from LU import LU
-
 
 def power_iteration(X, n_iter=100):
     """

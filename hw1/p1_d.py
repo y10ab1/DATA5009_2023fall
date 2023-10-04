@@ -1,7 +1,5 @@
 import numpy as np
-import pandas as pd
 from QR import QR
-
 
 def inverse_using_QR(X):
     """
@@ -25,11 +23,10 @@ def inverse_using_QR(X):
 if __name__ == "__main__":
     # load X_picked.npy's data
     X_picked = np.load('X_picked.npy')
-
     
     # compute the inverse of X_picked
     X_inv = inverse_using_QR(X_picked)
-    print(X_inv)
+    print(X_inv.round(2))
     
     # validate the inverse of X_picked
     print(f'X_inv is the inverse of X_picked: {np.allclose(np.dot(X_picked, X_inv), np.eye(X_picked.shape[0]))}')

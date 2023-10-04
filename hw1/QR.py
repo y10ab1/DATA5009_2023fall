@@ -17,7 +17,7 @@ def QR(X):
         for j in range(i):
             R[j, i] = np.dot(Q[:, j], X[:, i])
             X[:, i] -= R[j, i] * Q[:, j]
-        print(X[:, i], np.linalg.norm(X[:, i]))
+        # print(X[:, i], np.linalg.norm(X[:, i]))
         Q[:, i] = X[:, i] / np.linalg.norm(X[:, i])
     for i in range(n):
         R[i, i] = np.dot(Q[:, i], X[:, i])
