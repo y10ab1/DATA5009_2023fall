@@ -50,13 +50,16 @@ if __name__ == '__main__':
     IC = fastICA(X_prime, n_components=3)
     print(IC.round(2))
     
-    # plot 3 independent components of X_prime
-    plt.figure(figsize=(12, 4))
-    plt.subplot(1, 3, 1)
-    plt.plot(IC[:, 0])
-    plt.subplot(1, 3, 2)
-    plt.plot(IC[:, 1])
-    plt.subplot(1, 3, 3)
-    plt.plot(IC[:, 2])
+    # plot 3 independent components of X_prime and the original X_prime
+    plt.figure(figsize=(10, 5))
+    plt.subplot(121)
+    plt.plot(X_prime)
+    plt.title('X_prime')
+    plt.subplot(122)
+    plt.plot(IC)
+    plt.title('IC')
     plt.savefig('p3_d.png')
+    plt.clf()
+    
+
     
