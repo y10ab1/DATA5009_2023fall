@@ -31,9 +31,10 @@ if __name__ == '__main__':
     
     # compute the top K principal components of X_picked and print them
     topk_PC, topk_eigv = find_topk_PC(X_picked, k=K)
-    print('The top 3 principal components of X_picked are:')
+    print('The top k principal components of X_picked are:')
     print(topk_PC.round(2))
-    print('The corresponding eigenvalues are:', topk_eigv)
+    print('The corresponding eigenvalues are:', topk_eigv.round(2))
+    
     top3_PC = topk_PC[:3]
     X_picked_transformed = np.dot(top3_PC, X_picked)
     print('The transformed X_picked is:', X_picked_transformed.round(2))
@@ -56,14 +57,18 @@ if __name__ == '__main__':
     plt.tight_layout()
     plt.savefig('p2_b_cumulative_variance_explained.png')
     plt.clf()
+    
+    
+    
+    
 
     # validate the result using sklearn.decomposition.PCA
     pca = PCA(n_components=K)
     pca.fit(X_picked.T)
     print('Computed by sklearn.decomposition.PCA:')
-    print(pca.components_.T.round(2))
+    print(pca.components_.round(2))
     
-    print(f'topk_PC is correct: {np.allclose(np.abs(topk_PC.T.round(2)), np.abs(pca.components_.T.round(2)))}')
+    print(f'topk_PC is correct: {np.allclose(np.abs(topk_PC.T.round(2)), np.abs(pca.components_.round(2)))}')
 
 
     # plot the transformed X_picked in 3D
