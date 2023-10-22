@@ -19,10 +19,10 @@ def random_pick(X, n=6):
     
 
     
-    # check if X_picked has at least 4 eigenvalues
+    # check if X_picked has at least 4 real eigenvalues
     eigenvalues, eigenvectors = np.linalg.eig(X_picked)
-    print(f'X_picked has {len(eigenvalues)} eigenvalues')
-    assert len(eigenvalues) >= 4, 'X_picked does not have at least 4 eigenvalues, please try again'
+    print(f'X_picked has {np.sum(np.isreal(eigenvalues))} real eigenvalues')
+    assert np.sum(np.isreal(eigenvalues)) >= 4, 'X_picked does not have at least 4 real eigenvalues, please try again'
     
     return X_picked, idxs_r, idxs_c
     

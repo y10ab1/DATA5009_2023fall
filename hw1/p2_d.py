@@ -14,10 +14,17 @@ def find_PC_using_SVD(X, k=None):
     U, S, V = SVD(X)
     # find the first k principal components of X
     PC = U[:, :k]
-    return PC
+    # find corresponding eigenvalues
+    eigenvalues = S[:k, :k]
+    return PC, eigenvalues
 
 
 if __name__ == "__main__":
     X_picked = np.load('X_picked.npy')
     print(X_picked)
+    
+    # find all principal components of X_picked
+    PC, eigv = find_PC_using_SVD(X_picked)
+    print(PC.round(2))
+    print(eigv.round(2))
     
