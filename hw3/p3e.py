@@ -13,6 +13,7 @@ def tabu_search(distances, iterations=100, tabu_list_length=10):
     best_path = current_path
     best_distance = calculate_total_distance(distances, current_path)
     tabu_list = []
+    iter_log = []
 
     for _ in range(iterations):
         neighbors = generate_neighbors(current_path)
@@ -27,8 +28,10 @@ def tabu_search(distances, iterations=100, tabu_list_length=10):
         if current_distance < best_distance:
             best_distance = current_distance
             best_path = current_path
+        
+        iter_log.append(best_distance)
 
-    return best_path, best_distance
+    return best_path, best_distance, iter_log
 
 # Function to generate neighbors by swapping two cities
 def generate_neighbors(path):
@@ -59,6 +62,6 @@ def calculate_total_distance(distances, path):
     return sum(distances.loc[path[i], path[i+1]] for i in range(len(path)-1))
 
 # Run the Tabu Search algorithm
-best_path, best_distance = tabu_search(distances_df)
+best_path, best_distance, _ = tabu_search(distances_df)
 print(f'Best path found: {best_path}')
 print(f'Total distance: {best_distance}')

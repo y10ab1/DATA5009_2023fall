@@ -12,6 +12,7 @@ def hill_climbing(distances, iterations=100):
     current_path.append('Incheon')  # Return to the starting city
     best_distance = calculate_total_distance(distances, current_path)
     best_path = current_path
+    iter_log = []
 
     for _ in range(iterations):
         # Generate a neighbor path by swapping two cities
@@ -26,13 +27,14 @@ def hill_climbing(distances, iterations=100):
             best_distance = new_distance
             best_path = new_path
 
-    return best_path, best_distance
+        iter_log.append(best_distance)
+    return best_path, best_distance, iter_log
 
 # Function to calculate the total distance of a path
 def calculate_total_distance(distances, path):
     return sum(distances.loc[path[i], path[i+1]] for i in range(len(path)-1))
 
 # Run the hill climbing algorithm
-best_path, best_distance = hill_climbing(distances_df)
+best_path, best_distance, _ = hill_climbing(distances_df)
 print(f'Best path found: {best_path}')
 print(f'Total distance: {best_distance}')

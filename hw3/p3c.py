@@ -10,6 +10,7 @@ def random_walk(distances, num_iterations=100):
     cities = distances.columns.tolist()
     best_path = None
     best_distance = float('inf')
+    iter_log = []
 
     for _ in range(num_iterations):
         path = ['Incheon'] + random.sample(cities, len(cities))
@@ -19,10 +20,12 @@ def random_walk(distances, num_iterations=100):
         if total_distance < best_distance:
             best_distance = total_distance
             best_path = path
+        
+        iter_log.append(best_distance)
 
-    return best_path, best_distance
+    return best_path, best_distance, iter_log
 
 # Run the random walk algorithm
-best_path, best_distance = random_walk(distances_table)
+best_path, best_distance, _ = random_walk(distances_table)
 print(f'Best path: {best_path}')
 print(f'Total distance: {best_distance}')

@@ -13,6 +13,7 @@ def simulated_annealing(distances, initial_temp=1000, cooling_rate=0.99, iterati
     current_path.append('Incheon')  # Return to the starting city
     current_distance = calculate_total_distance(distances, current_path)
     best_path, best_distance = current_path, current_distance
+    iter_log = []
 
     temperature = initial_temp
 
@@ -26,9 +27,10 @@ def simulated_annealing(distances, initial_temp=1000, cooling_rate=0.99, iterati
             if new_distance < best_distance:
                 best_path, best_distance = new_path, new_distance
 
+        iter_log.append(best_distance)
         temperature *= cooling_rate
 
-    return best_path, best_distance
+    return best_path, best_distance, iter_log
 
 # Calculate acceptance probability
 def acceptance_probability(old_distance, new_distance, temperature):
@@ -48,6 +50,6 @@ def calculate_total_distance(distances, path):
     return sum(distances.loc[path[i], path[i+1]] for i in range(len(path)-1))
 
 # Run the Simulated Annealing algorithm
-best_path, best_distance = simulated_annealing(distances_df)
+best_path, best_distance, _ = simulated_annealing(distances_df)
 print(f'Best path found: {best_path}')
 print(f'Total distance: {best_distance}')

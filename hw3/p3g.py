@@ -28,7 +28,7 @@ def ACO(distances, num_ants=10, num_iterations=100, decay=0.5, alpha=1, beta=2):
     # Ant Colony Optimization
     best_path = None
     best_distance = float('inf')
-
+    iter_log = []
     for iteration in range(num_iterations):
         ants_paths = []
         for ant in range(num_ants):
@@ -47,11 +47,13 @@ def ACO(distances, num_ants=10, num_iterations=100, decay=0.5, alpha=1, beta=2):
             if path_distance < best_distance:
                 best_path = path
                 best_distance = path_distance
+            
+        iter_log.append(best_distance)
 
         pheromones *= decay  # Pheromone evaporation
         pheromones = update_pheromones(pheromones, ants_paths, distances)
     
-    return best_path, best_distance
-best_path, best_distance = ACO(distances)
+    return best_path, best_distance, iter_log
+best_path, best_distance, _ = ACO(distances)
 print(f'Best path found: {best_path}')
 print(f'Total distance: {best_distance}')
