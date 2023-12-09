@@ -15,9 +15,9 @@ Computational Methods for Data Science
 
 
 ## How to run the code
-- Environment: 
-'''
+
+```bash
 conda create data python=3.10
 conda activate data
 pip install -r requirements.txt
-'''
+```
